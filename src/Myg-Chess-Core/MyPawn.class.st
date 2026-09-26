@@ -5,12 +5,23 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
-{ #category : 'as yet unclassified' }
-MyPawn >> forwardSquare [
+{ #category : 'constants' }
+MyPawn class >> black [ 
+	^ MyBlackPawn new
+		color: Color black;
+		yourself 
+]
 
-    ^ self isWhite
-        ifTrue: [ square up ]
-        ifFalse: [ square down ]
+{ #category : 'constants' }
+MyPawn class >> white [ 
+	^ MyWhitePawn new 
+		color: Color white;
+		yourself 
+]
+
+{ #category : 'as yet unclassified' }
+MyPawn >> forwardSquare [ 
+	^ self subclassResponsibility 
 ]
 
 { #category : 'accessing' }
@@ -20,11 +31,8 @@ MyPawn >> id [
 ]
 
 { #category : 'as yet unclassified' }
-MyPawn >> initialFile [
-
-    ^ self isWhite
-        ifTrue: [ $2 ]
-        ifFalse: [ $7 ]
+MyPawn >> initialFile [ 
+	^ self subclassResponsibility 
 ]
 
 { #category : 'rendering' }
@@ -34,11 +42,8 @@ MyPawn >> renderPieceOn: aSquare [
 ]
 
 { #category : 'as yet unclassified' }
-MyPawn >> secondForwardSquare [
-
-    ^ self isWhite
-        ifTrue: [ square up up ]
-        ifFalse: [ square down down ]
+MyPawn >> secondForwardSquare [ 
+	^ self subclassResponsibility 
 ]
 
 { #category : 'rendering' }
