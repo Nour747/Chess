@@ -27,6 +27,24 @@ MyBishopTests >> testMoves [
 ]
 
 { #category : 'tests' }
+MyBishopTests >> testMovesKingPinned [
+
+	| whiteRook squares board |
+	board := MyChessBoard empty.
+	board at: 'e4' put: (whiteRook := MyRook white).
+	board at: 'e5' put: MyKing white.
+	board at: 'e1' put: MyRook black.
+
+	squares := whiteRook targetSquaresLegal: true.
+
+	self
+		denyCollection: squares
+		includesAny:
+			(#( e5 e6 e7 e8 d4 c4 b4 a4 f4 g4 h4 ) collect: [ :name |
+				 board at: name ])
+]
+
+{ #category : 'tests' }
 MyBishopTests >> testMovesWithOponentObstacle [
 
 	| bishop squares board |
