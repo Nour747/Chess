@@ -6,6 +6,21 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
+MyBlackPawn >> attackingSquares [
+
+    | forward |
+
+    forward := square down.
+
+    forward ifNil: [ ^ #() ].
+
+    ^ {
+        forward left.
+        forward right
+    } select: [ :s | s notNil ]
+]
+
+{ #category : 'as yet unclassified' }
 MyBlackPawn >> forwardSquare [ 
 	^ square down 
 ]

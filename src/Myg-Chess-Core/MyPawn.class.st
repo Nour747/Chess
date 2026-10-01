@@ -55,16 +55,24 @@ MyPawn >> targetSquaresLegal: aBoolean [
 	oneStep := self forwardSquare.
 	
 	(oneStep notNil and: [ oneStep hasPiece not])
-		ifFalse: [ ^targets ].
-		
-	targets add: oneStep. 
-	
-	square file = self initialFile 
 		ifTrue: [ 
-			twoSteps := self secondForwardSquare.
-			(twoSteps notNil and: [twoSteps  hasPiece not ])
-				ifTrue: [  targets add: twoSteps ]
+			targets add: oneStep. 
+	
+			square file = self initialFile 
+				ifTrue: [ 
+					twoSteps := self secondForwardSquare.
+					(twoSteps notNil and: [twoSteps  hasPiece not ])
+						ifTrue: [  targets add: twoSteps ]
+				]
 		].
+	
+	targets addAll: 
+		(self attackingSquares select: [ :s | 
+			s hasPiece and: [
+				 s contents color ~= color 
+			]
+		]).
+
 	^ targets 
   
 ]
