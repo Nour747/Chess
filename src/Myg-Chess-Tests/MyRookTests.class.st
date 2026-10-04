@@ -27,7 +27,7 @@ MyRookTests >> testMoves [
 ]
 
 { #category : 'tests' }
-MyRookTests >> testMovesKingPinned [ [
+MyRookTests >> testMovesKingPinned [ 
 
 	| whiteRook squares board |
 	board := MyChessBoard empty.
@@ -42,7 +42,7 @@ MyRookTests >> testMovesKingPinned [ [
 		includesAny:
 			(#( e5 e6 e7 e8 d4 c4 b4 a4 f4 g4 h4 ) collect: [ :name |
 				 board at: name ])
-]
+
 ]
 
 { #category : 'tests' }

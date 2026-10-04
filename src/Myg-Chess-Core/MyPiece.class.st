@@ -28,7 +28,7 @@ MyPiece class >> white [
 { #category : 'as yet unclassified' }
 MyPiece >> attackingSquares [
 
-	^ self legalTargetSquares
+	^ self targetSquares
 ]
 
 { #category : 'path commands' }
@@ -155,6 +155,33 @@ MyPiece >> leftFileLegal: aBoolean [
 	^ self collectSquares: [ :aSquare | aSquare left ] legal: aBoolean
 ]
 
+{ #category : 'as yet unclassified' }
+MyPiece >> legalMovesFrom: squares [
+
+    ^ squares select: [ :target |
+        | oldSquare oldContents |
+        oldSquare := square.
+        oldContents := target contents.
+
+        square emptyContents.
+        target contents: self.
+        square := target.
+
+        (self ownKing isInCheck) ifFalse: [
+            square emptyContents.
+            square := oldSquare.
+            oldSquare contents: self.
+            target contents: oldContents.
+            true
+        ] ifTrue: [
+            square emptyContents.
+            square := oldSquare.
+            oldSquare contents: self.
+            target contents: oldContents.
+            false
+        ] ]
+]
+
 { #category : 'path commands' }
 MyPiece >> legalTargetSquares [
 
@@ -169,6 +196,15 @@ MyPiece >> moveTo: aSquare [
 	square emptyContents.
 	square := aSquare.
 	aSquare contents: self
+]
+
+{ #category : 'as yet unclassified' }
+MyPiece >> ownKing [
+
+    ^ self board pieces
+        detect: [ :piece |
+            piece notNil
+                and: [ piece isKing and: [ piece color = self color ] ] ]
 ]
 
 { #category : 'rendering' }
