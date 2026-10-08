@@ -17,7 +17,7 @@ MyWhitePawn >> attackingSquares [
     ^ {
         forward left.
         forward right
-    } select: [ :s | s notNil ]
+    } select: [ :s | s isValidSquare ]
 
 ]
 
