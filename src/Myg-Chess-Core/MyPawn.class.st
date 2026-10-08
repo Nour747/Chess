@@ -65,6 +65,12 @@ MyPawn >> targetSquaresLegal: aBoolean [
 			(twoSteps notNil and: [twoSteps  hasPiece not ])
 				ifTrue: [  targets add: twoSteps ]
 		].
+	targets addAll: 
+		(self attackingSquares select: [ :s | 
+			s hasPiece and: [
+				 s contents color ~= color 
+			]
+		]).
 	^ targets 
   
 ]
