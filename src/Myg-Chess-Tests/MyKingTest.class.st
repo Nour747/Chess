@@ -30,3 +30,19 @@ MyKingTest >> testIsNotCheckBySameColorRook [
 
 	self deny: king isInCheck
 ]
+
+{ #category : 'tests' }
+MyKingTest >> testKingBasicTargetSquaresFromCorner [
+
+    | board king squares |
+
+    board := MyChessBoard empty.
+    board at: 'a1' put: (king := MyKing white).
+
+    squares := king basicTargetSquares.
+
+    self
+        assertCollection: squares
+        includesAll: (#(a2 b1 b2) collect: [ :name |
+            board at: name ])
+]
