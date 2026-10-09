@@ -205,85 +205,76 @@ MyChessSquare >> printOn: aStream [
 
 { #category : 'rendering' }
 MyChessSquare >> renderBishop: aPiece [
-
-	^ aPiece isWhite
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'B' ]
-				  ifTrue: [ 'b' ] ]
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'V' ]
-				  ifTrue: [ 'v' ] ]
+    ^ self renderPiece: aPiece
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderKing: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'L' ]
-				  ifTrue: [ 'l' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'K' ]
-				  ifTrue: [ 'k' ] ]
+    ^ self renderPiece: aPiece
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderKnight: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [ color isBlack
-				  ifFalse: [ 'M' ]
-				  ifTrue: [ 'm' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'N' ]
-				  ifTrue: [ 'n' ] ]
+    ^ self renderPiece: aPiece
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderPawn: aPiece [
+    ^ self renderPiece: aPiece
+]
 
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'O' ]
-				  ifTrue: [ 'o' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'P' ]
-				  ifTrue: [ 'p' ] ]
+{ #category : 'rendering' }
+MyChessSquare >> renderPiece: aPiece [
+
+	| key table |
+
+	key := aPiece id
+	       , aPiece isWhite asString
+	       , color isBlack asString.
+
+	table := Dictionary newFrom: {
+		'Btruefalse' -> 'B'.
+		'Btruetrue' -> 'b'.
+		'Bfalsefalse' -> 'V'.
+		'Bfalsetrue' -> 'v'.
+
+		'Ktruefalse' -> 'K'.
+		'Ktruetrue' -> 'k'.
+		'Kfalsefalse' -> 'L'.
+		'Kfalsetrue' -> 'l'.
+
+		'Ntruefalse' -> 'N'.
+		'Ntruetrue' -> 'n'.
+		'Nfalsefalse' -> 'M'.
+		'Nfalsetrue' -> 'm'.
+
+		'Ptruefalse' -> 'P'.
+		'Ptruetrue' -> 'p'.
+		'Pfalsefalse' -> 'O'.
+		'Pfalsetrue' -> 'o'.
+
+		'Qtruefalse' -> 'Q'.
+		'Qtruetrue' -> 'q'.
+		'Qfalsefalse' -> 'W'.
+		'Qfalsetrue' -> 'w'.
+
+		'Rtruefalse' -> 'R'.
+		'Rtruetrue' -> 'r'.
+		'Rfalsefalse' -> 'T'.
+		'Rfalsetrue' -> 't'
+	}.
+
+	^ table at: key
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderQueen: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'W' ]
-				  ifTrue: [ 'w' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'Q' ]
-				  ifTrue: [ 'q' ] ]
+    ^ self renderPiece: aPiece
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderRook: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'T' ]
-				  ifTrue: [ 't' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'R' ]
-				  ifTrue: [ 'r' ] ]
+    ^ self renderPiece: aPiece
 ]
 
 { #category : 'accessing' }
